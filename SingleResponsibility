@@ -1,0 +1,75 @@
+import UIKit
+import Foundation
+
+//No single responsibility
+
+class Handler{
+    
+    func handle(){
+        let data = requestDataToApi()!
+        let array = parseData(data: data)
+        saveData(array: array!)
+    }
+    
+    private func requestDataToApi() -> Data?{
+        //request data from API
+        return nil
+    }
+    
+    private func parseData(data : Data) -> [String]?{
+        //parse data to API
+        return nil
+    }
+    
+    private func saveData(array : [String]){
+        //save in local DB
+    }
+    
+}
+
+//Single Responsibility
+
+class Handler{
+    
+    let apiHandler : APIHandler?
+    let parserHandler : ParserHandler?
+    let saveHandler : SaveHandler?
+    
+    init(apiHandler : APIHandler?, parserHandler : ParserHandler?, saveHandler : SaveHandler?) {
+        self.apiHandler = apiHandler
+        self.parserHandler = parserHandler
+        self.saveHandler = saveHandler
+    }
+    
+    func handle(){
+        let data = (apiHandler?.requestDataToApi())!
+        let array = (parserHandler?.parseData(data: data))!
+        saveHandler?.saveData(array: array)
+    }
+
+}
+
+class APIHandler{
+    func requestDataToApi() -> Data?{
+        //request data from API
+        return nil
+    }
+}
+
+class ParserHandler{
+    func parseData(data : Data) -> [String]?{
+        //parse data to API
+        return nil
+    }
+}
+
+class SaveHandler{
+    func saveData(array : [String]){
+        //save in local DB
+    }
+}
+
+let objHandler = Handler(apiHandler: APIHandler(), parserHandler: ParserHandler(), saveHandler: SaveHandler())
+
+objHandler.handle()
+
