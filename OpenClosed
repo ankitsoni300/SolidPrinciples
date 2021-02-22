@@ -1,0 +1,39 @@
+protocol Shape{
+    func area() -> Double
+}
+
+class Rectangle : Shape{
+    var height : Double? = 0
+    var width : Double? = 0
+    
+    init(height : Double?, width : Double?) {
+        self.height = height
+        self.width = width
+    }
+    
+    func area() -> Double{
+        return self.height! * self.width!
+    }
+}
+
+class Circle : Shape{
+    var radius : Double?
+    
+    init(radius : Double?) {
+        self.radius = radius
+    }
+    
+    func area() -> Double{
+        return self.radius! * self.radius!
+    }
+}
+
+
+class AreaCalculator{
+    func area(shape : Shape) -> Double?{
+        return shape.area()
+    }
+}
+
+let objCal = AreaCalculator()
+objCal.area(shape: Rectangle(height: 10, width: 3))
